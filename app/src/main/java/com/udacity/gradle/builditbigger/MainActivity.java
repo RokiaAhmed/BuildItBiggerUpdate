@@ -57,17 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
         Joker joker = new Joker();
         new EndpointsAsyncTask().execute(new Pair<Context, String>(this, joker.getJoke()));
-
-
-//        Intent intent = new Intent(this, JokesActivity.class);
-//        intent.putExtra("joke", joker.getJoke());
-//        startActivity(intent);
-//        Toast.makeText(this,
-//                joker.getJoke(), Toast.LENGTH_SHORT).show();
     }
 
 
-    class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+     public  class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
         private MyApi myApiService = null;
         private Context context;
 
@@ -105,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String result) {
 //            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
 
-            Intent intent = new Intent(MainActivity.this, JokesActivity.class);
+            Intent intent = new Intent(context, JokesActivity.class);
             intent.putExtra("joke", result);
             startActivity(intent);
         }
