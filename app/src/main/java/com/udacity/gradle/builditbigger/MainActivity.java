@@ -16,7 +16,6 @@ import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
-import com.udacity.gradle.jokes.Joker;
 import com.udacity.mylibrary.JokesActivity;
 
 import java.io.IOException;
@@ -54,14 +53,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Joker joker = new Joker();
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, joker.getJoke()));
+//        Joker joker = new Joker();
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "test"));
     }
 
 
-     public  class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+    public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
         private MyApi myApiService = null;
         private Context context;
+        private String joke;
 
         @Override
         protected String doInBackground(Pair<Context, String>... params) {
@@ -87,10 +87,11 @@ public class MainActivity extends AppCompatActivity {
             String name = params[0].second;
 
             try {
-                return myApiService.sayHi(name).execute().getData();
+                joke = myApiService.sayHi(name).execute().getData();
             } catch (IOException e) {
-                return e.getMessage();
+                e.printStackTrace();
             }
+            return joke;
         }
 
         @Override
